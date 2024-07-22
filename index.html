@@ -101605,7 +101605,7 @@ class App3D {
             this.demoCube.material.map.needsUpdate = true;
             this.demoCube.material.needsUpdate = true;
 
-            let mat = new MeshPhongMaterial( { color: 0xffffff, map:  window.loadedTextures['textures3d/yellow'].clone()} );
+            let mat = new MeshPhongMaterial( { color: 0xffffff} );
 
             this.demoTorus = new three_module_Mesh(new TorusGeometry( 3, 0.5, 16, 100 ), mat );
             this.scene.add(this.demoTorus);
