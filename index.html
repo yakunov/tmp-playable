@@ -101584,8 +101584,7 @@ class App3D {
         this.demoCube = new three_module_Mesh( new BoxGeometry(2, 2, 2), new MeshPhongMaterial( { color: 0xff0000 } ) );
         this.scene.add(this.demoCube);
 
-        this.demoTorus = new three_module_Mesh(new TorusGeometry( 3, 0.5, 16, 100 ), new MeshPhongMaterial( { color: 0x00ff00 } ) );
-        //this.scene.add(this.demoTorus);
+        
         
 
         const ambLight = new AmbientLight(0xffffff, 0.4)
@@ -101597,21 +101596,22 @@ class App3D {
     }
 
     init() { 
-        this.renderer.setAnimationLoop(() => this.animate());
+        
         ModelsLoader.load().then(TexturesLoader.load()).then(() => {
-
-            this.scene.add(this.demoTorus);
+            this.renderer.setAnimationLoop(() => this.animate());
 
             this.demoCube.material.color = new Color(0xffffff);
             this.demoCube.material.map = window.loadedTextures['textures3d/blue'].clone();
             this.demoCube.material.map.needsUpdate = true;
             this.demoCube.material.needsUpdate = true;
 
+            let mat = new MeshPhongMaterial( { color: 0xffffff, map:  window.loadedTextures['textures3d/yellow'].clone()} );
 
-            this.demoTorus.material.color = new Color(0xffffff);
-            this.demoTorus.material.map = window.loadedTextures['textures3d/yellow'].clone();
-            this.demoTorus.material.map.needsUpdate = true;
-            this.demoTorus.material.needsUpdate = true;
+            this.demoTorus = new three_module_Mesh(new TorusGeometry( 3, 0.5, 16, 100 ), mat );
+            this.scene.add(this.demoTorus);
+            
+            
+
         })
     }
 
@@ -101619,7 +101619,7 @@ class App3D {
         this.renderer.render(this.scene, this.camera);
         this.demoCube.rotation.x += 0.01;
         this.demoCube.rotation.z += 0.003;
-        this.demoTorus.rotation.y += 0.01;
+        
     }
 
     onResize(canvasData, appData) {
